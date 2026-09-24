@@ -55,23 +55,23 @@
         <p>All projects are quoted after a technical consultation. The more detail you share — channels,
         temperature ranges, feedstock types, timelines — the faster we can respond with something concrete.</p>
 
-        <form id="contact-form" novalidate>
+        <form id="contact-form" novalidate data-endpoint="/sendmail/process-wrapper.php">
           <div class="form-grid">
             <div class="field">
-              <label for="f-name">Name *</label>
-              <input type="text" id="f-name" name="name" required autocomplete="name">
+              <label for="f-name">Your name *</label>
+              <input type="text" id="f-name" name="Name" required maxlength="60" autocomplete="name">
             </div>
             <div class="field">
-              <label for="f-email">Email *</label>
-              <input type="email" id="f-email" name="email" required autocomplete="email">
+              <label for="f-email">Your email address *</label>
+              <input type="email" id="f-email" name="Email" required maxlength="100" autocomplete="email">
             </div>
             <div class="field">
-              <label for="f-org">Organization</label>
-              <input type="text" id="f-org" name="organization" autocomplete="organization">
+              <label for="f-company">Company name (optional)</label>
+              <input type="text" id="f-company" name="Company" maxlength="100" autocomplete="organization">
             </div>
             <div class="field">
               <label for="f-topic">Topic</label>
-              <select id="f-topic" name="topic">
+              <select id="f-topic" name="Topic">
                 <option>Lab / DAQ System Inquiry</option>
                 <option>KC-36 Logger — Pricing</option>
                 <option>KC-36 Logger — Support</option>
@@ -81,17 +81,28 @@
                 <option>Other</option>
               </select>
             </div>
-            <div class="field full">
-              <label for="f-msg">Message *</label>
-              <textarea id="f-msg" name="message" required placeholder="Tell us about your lab, your experiment, or your feedstock…"></textarea>
+            <div class="field">
+              <label for="f-phone">Your phone number *</label>
+              <input type="tel" id="f-phone" name="Phone" required maxlength="30" placeholder="+1 (604) 123-4567" autocomplete="tel">
+            </div>
+            <div class="field">
+              <label for="f-ext">Extension (optional)</label>
+              <input type="text" id="f-ext" name="Extension" maxlength="6" inputmode="numeric" placeholder="ext">
             </div>
             <div class="field full">
-              <button type="submit" class="btn btn-primary btn-lg btn-block">Send Message</button>
+              <label for="f-msg">Your message *</label>
+              <textarea id="f-msg" name="Message" required maxlength="3000" placeholder="Tell us about your lab, your experiment, or your feedstock…"></textarea>
+            </div>
+            <div class="field full">
+              <button type="submit" id="f-submit" class="btn btn-primary btn-lg btn-block">Send Message</button>
             </div>
           </div>
           <div class="form-status" id="form-status" role="status"></div>
-          <p class="form-note">This form opens your email client with everything pre-filled, or write to us
-          directly at <a href="mailto:info@kineticore.ca">info@kineticore.ca</a>.</p>
+          <div id="form-thankyou" style="display:none;">
+            <div class="form-status ok" style="display:block; font-size:16px;">Thanks for contacting us — we will get back in touch with you soon.</div>
+          </div>
+          <p class="form-note">Prefer email? Write to us directly at
+          <a href="mailto:info@kineticore.ca">info@kineticore.ca</a>.</p>
         </form>
       </div>
 

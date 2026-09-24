@@ -39,6 +39,11 @@ site: **Laboratory & DAQ Systems** (the existing business) and **Pyrolysis & Bio
 ## Editing tips
 
 - All nav/footer markup is repeated per page (static site trade-off). Search-replace across files to update.
+- **Contact form** posts via AJAX to `/sendmail/process-wrapper.php` — the same PHP backend the original
+  site hosts (fields: `Name, Email, Company, Topic, Phone, Extension, Message`). It only works when
+  deployed to the live host at the domain root; if you deploy under a subfolder, update the form's
+  `data-endpoint` attribute in `contact.html`. Response parsing matches the original `form.js`
+  (`Success*` → thank-you, `Fail:`/`Error:`/`Debug:` → inline error).
 - Product data in `kc-36.html` (36 channels, NI-9213/9211 modules, ±0.5 °C, v1.6.1) mirrors the official
   manual — update together with the manual.
 - Plant status claims (phases, "2027", capacity) live in `services.html` and `pyrolysis.html` — keep them

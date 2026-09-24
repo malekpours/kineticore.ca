@@ -57,37 +57,121 @@
     showPanel("panel-lab");
   }
 
-  /* ---------- Contact form (static-friendly, opens mail client or logs) ---------- */
+  /* ---------- Contact form (AJAX POST to the same backend the original site uses) ---------- */
   var form = document.getElementById("contact-form");
   if (form) {
+    var status = document.getElementById("form-status");
+    var submitBtn = document.getElementById("f-submit");
+
+    /* Phone auto-format, mirroring the original form.js behaviour */
+    var phoneEl = document.getElementById("f-phone");
+    if (phoneEl && !phoneEl.value) { phoneEl.value = "+1 "; }
+    function formatPlusOne(v) {
+      var digits = (v.match(/\d/g) || []).join("");
+      if (digits.indexOf("1") !== 0) return v;
+      var local = digits.slice(1, 11);
+      var out = "+1 ";
+      if (local.length > 0) out += "(" + local.slice(0, Math.min(3, local.length)) + ")";
+      if (local.length > 3) out += " " + local.slice(3, Math.min(6, local.length));
+      if (local.length > 6) out += "-" + local.slice(6);
+      return out;
+    }
+    function formatGeneric(v) {
+      var capped = ((v.match(/\d/g) || []).join("")).slice(0, 15);
+      return capped.length === 0 ? "" : capped.replace(/(.{1,3})/g, "$1 ").trim();
+    }
+    if (phoneEl) {
+      phoneEl.addEventListener("input", function () {
+        var v = phoneEl.value;
+        if (v.replace(/\s/g, "").indexOf("+1") === 0) phoneEl.value = formatPlusOne(v);
+        else if (v.indexOf("+") === 0) phoneEl.value = v.replace(/\s+/g, " ");
+        else phoneEl.value = formatGeneric(v);
+      });
+    }
+
+    function validPhone(v) {
+      v = String(v).trim();
+      if (v.length === 0) return false;
+      if (/[A-Za-z]/.test(v)) return false;
+      if (!/^\+?[0-9\s\-\(\)]+$/.test(v)) return false;
+      var digits = (v.match(/\d/g) || []).length;
+      var compact = v.replace(/\s/g, "");
+      if (compact.indexOf("+1") === 0 || compact.indexOf("1") === 0) {
+        var nums = (v.match(/\d/g) || []).join("");
+        if (nums.indexOf("1") !== 0) return false;
+        return nums.length === 11;
+      }
+      return digits >= 7 && digits <= 15;
+    }
+
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
-      var status = document.getElementById("form-status");
-      var name = (form.querySelector("#f-name") || {}).value || "";
-      var email = (form.querySelector("#f-email") || {}).value || "";
-      var msg = (form.querySelector("#f-msg") || {}).value || "";
-      var ok = true;
+      var name = form.querySelector("#f-name").value.trim();
+      var email = form.querySelector("#f-email").value.trim();
+      var phone = form.querySelector("#f-phone").value;
+      var ext = form.querySelector("#f-ext").value.trim();
+      var msg = form.querySelector("#f-msg").value.trim();
 
-      if (!name.trim()) { ok = false; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { ok = false; }
-      if (msg.trim().length < 10) { ok = false; }
+      var problems = [];
+      if (!name) { problems.push("your name"); }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { problems.push("a valid email"); }
+      if (!validPhone(phone)) { problems.push("a valid phone number (for +1, 11 digits total; others 7-15)"); }
+      if (ext && !/^[0-9]{1,6}$/.test(ext)) { problems.push("an extension of 1-6 digits"); }
+      if (!msg) { problems.push("your message"); }
 
-      if (!ok) {
+      if (problems.length) {
         status.className = "form-status err";
-        status.textContent = "Please fill in your name, a valid email, and a message (min 10 characters).";
+        status.textContent = "Please provide " + problems.join(", ") + ".";
         return;
       }
 
-      var subject = encodeURIComponent("Website inquiry — " + (form.querySelector("#f-topic") ? form.querySelector("#f-topic").value : "General"));
-      var body = encodeURIComponent(
-        "Name: " + name + "\n" +
-        "Organization: " + ((form.querySelector("#f-org") || {}).value || "") + "\n" +
-        "Email: " + email + "\n\n" +
-        msg
-      );
-      window.location.href = "mailto:info@kineticore.ca?subject=" + subject + "&body=" + body;
-      status.className = "form-status ok";
-      status.textContent = "Your email client should open with the message pre-filled. Or write to us directly at info@kineticore.ca.";
+      var endpoint = form.getAttribute("data-endpoint") || "/sendmail/process-wrapper.php";
+      var data = new URLSearchParams();
+      form.querySelectorAll("input[name], select[name], textarea[name]").forEach(function (el) {
+        data.append(el.name, el.value);
+      });
+
+      submitBtn.disabled = true;
+      var originalLabel = submitBtn.textContent;
+      submitBtn.textContent = "Please wait..";
+      status.className = "form-status";
+      status.textContent = "";
+
+      fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+        body: data.toString()
+      })
+        .then(function (r) { return r.text(); })
+        .then(function (response) {
+          if (response.indexOf("Success") === 0) {
+            form.querySelector(".form-grid").style.display = "none";
+            document.getElementById("form-thankyou").style.display = "block";
+            var note = form.querySelector(".form-note");
+            if (note) note.style.display = "none";
+          } else if (response.indexOf("Fail:") === 0) {
+            status.className = "form-status err";
+            status.innerHTML = "<strong>Configuration error:</strong><br>" + response.substring(5);
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
+          } else if (response.indexOf("Error:") === 0 || response.indexOf("Debug:") === 0) {
+            status.className = "form-status err";
+            status.innerHTML = "<strong>Error:</strong><br>" + response.replace(/^(Error:|Debug:)/, "");
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
+          } else {
+            status.className = "form-status err";
+            status.textContent = "Unknown error, please try later - or email info@kineticore.ca directly.";
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
+          }
+        })
+        .catch(function () {
+          status.className = "form-status err";
+          status.textContent = "Could not reach the form server. If you are viewing a local preview, this works once deployed - meanwhile email info@kineticore.ca.";
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+        });
     });
   }
 })();
