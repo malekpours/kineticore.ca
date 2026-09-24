@@ -57,9 +57,10 @@
     showPanel("panel-lab");
   }
 
-  /* ---------- Contact form topic deep-links (?topic=... from CTAs across the site) ---------- */
-  var form0 = document.getElementById("contact-form");
-  if (form0) {
+  /* ---------- Contact form topic deep-links (?topic=...) ----------
+     Also duplicated inline in contact.html so it works even if an older cached
+     version of this file loads: the inline copy always runs. */
+  (function () {
     var topicSelect = document.getElementById("f-topic");
     var topicMap = {
       "lab-daq": "Lab / DAQ System Inquiry",
@@ -78,10 +79,10 @@
         }
       }
     }
-  }
+  })();
 
   /* ---------- Contact form (AJAX POST to the same backend the original site uses) ---------- */
-  var form = document.getElementById("contact-form");
+  var form = document.getElementById("quote-form");
   if (form) {
     var status = document.getElementById("form-status");
     var submitBtn = document.getElementById("f-submit");
