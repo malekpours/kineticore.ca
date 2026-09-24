@@ -1,0 +1,15 @@
+# Freebuff workspace metadata
+.freebuff/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
