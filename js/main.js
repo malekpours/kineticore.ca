@@ -57,6 +57,29 @@
     showPanel("panel-lab");
   }
 
+  /* ---------- Contact form topic deep-links (?topic=... from CTAs across the site) ---------- */
+  var form0 = document.getElementById("contact-form");
+  if (form0) {
+    var topicSelect = document.getElementById("f-topic");
+    var topicMap = {
+      "lab-daq": "Lab / DAQ System Inquiry",
+      "kc36-pricing": "KC-36 Logger \u2014 Pricing",
+      "kc36-support": "KC-36 Logger \u2014 Support",
+      "feedstock": "Biochar \u2014 Feedstock Supply",
+      "biochar-buy": "Biochar \u2014 Purchasing Biochar",
+      "toll": "Biochar \u2014 Toll Processing"
+    };
+    var wanted = new URLSearchParams(window.location.search).get("topic");
+    if (topicSelect && wanted && topicMap[wanted]) {
+      for (var i = 0; i < topicSelect.options.length; i++) {
+        if (topicSelect.options[i].text === topicMap[wanted]) {
+          topicSelect.selectedIndex = i;
+          break;
+        }
+      }
+    }
+  }
+
   /* ---------- Contact form (AJAX POST to the same backend the original site uses) ---------- */
   var form = document.getElementById("contact-form");
   if (form) {
