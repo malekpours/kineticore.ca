@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Kineticore Systems Inc.</title>
+  <meta name="description" content="Get in touch with Kineticore — technical consultations for DAQ systems, quotes for the KC-36, and partnerships for pyrolysis feedstock or biochar supply.">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="index.html" aria-label="Kineticore Systems home">
+        <svg class="logo-mark" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="37" height="37" rx="9" fill="#123c2c"/>
+          <path d="M13 12v16" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M22 12l8 8-8 8" fill="none" stroke="#ecb454" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="logo-text">
+          <span class="logo-name">Kineticore</span>
+          <span class="logo-tag">Systems Inc.</span>
+        </span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="lab-systems.html">Lab Systems</a>
+        <a href="pyrolysis.html">Pyrolysis &amp; Biochar</a>
+        <a href="kc-36.html">KC-36 Logger</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="btn btn-primary btn-sm nav-cta">Request a Consultation</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="crumb"><a href="index.html">Home</a> / Contact</div>
+      <h1>Let's Discuss Your Requirements</h1>
+      <p>If your lab needs reliable, plug-and-play data acquisition — or you'd like to talk wood waste,
+      biochar or partnerships — we'd like to hear from you.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split" style="align-items: flex-start; gap: 48px;">
+      <div class="split-content" style="max-width: none;">
+        <span class="eyebrow">Send a message</span>
+        <h2>Tell Us What You're Building</h2>
+        <p>All projects are quoted after a technical consultation. The more detail you share — channels,
+        temperature ranges, feedstock types, timelines — the faster we can respond with something concrete.</p>
+
+        <form id="contact-form" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="f-name">Name *</label>
+              <input type="text" id="f-name" name="name" required autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="f-email">Email *</label>
+              <input type="email" id="f-email" name="email" required autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="f-org">Organization</label>
+              <input type="text" id="f-org" name="organization" autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="f-topic">Topic</label>
+              <select id="f-topic" name="topic">
+                <option>Lab / DAQ System Inquiry</option>
+                <option>KC-36 Logger — Pricing</option>
+                <option>KC-36 Logger — Support</option>
+                <option>Biochar — Feedstock Supply</option>
+                <option>Biochar — Purchasing Biochar</option>
+                <option>Biochar — Toll Processing</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="f-msg">Message *</label>
+              <textarea id="f-msg" name="message" required placeholder="Tell us about your lab, your experiment, or your feedstock…"></textarea>
+            </div>
+            <div class="field full">
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Send Message</button>
+            </div>
+          </div>
+          <div class="form-status" id="form-status" role="status"></div>
+          <p class="form-note">This form opens your email client with everything pre-filled, or write to us
+          directly at <a href="mailto:info@kineticore.ca">info@kineticore.ca</a>.</p>
+        </form>
+      </div>
+
+      <aside style="min-width: 320px;">
+        <div class="card" style="margin-bottom: 22px;">
+          <div class="icon-chip">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3 style="font-size:17px;">Email</h3>
+          <p><a href="mailto:info@kineticore.ca">info@kineticore.ca</a><br>
+          <span style="font-size:13px; color: var(--muted);">We aim to respond within one business day.</span></p>
+        </div>
+        <div class="card" style="margin-bottom: 22px;">
+          <div class="icon-chip">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3 style="font-size:17px;">Where we work</h3>
+          <p>Canada — serving industrial R&amp;D teams, universities and biomass partners nationwide.</p>
+        </div>
+        <div class="card">
+          <div class="icon-chip amber">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          </div>
+          <h3 style="font-size:17px;">KC-36 Support</h3>
+          <p style="font-size:14px;">Existing customer? Include your serial number and calibration date for
+          the fastest help. Annual recalibration scheduling: mention "calibration" in your message.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="logo" href="index.html" aria-label="Kineticore Systems home">
+            <svg class="logo-mark" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+              <rect x="1.5" y="1.5" width="37" height="37" rx="9" fill="#1f6b4f"/>
+              <path d="M13 12v16" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M22 12l8 8-8 8" fill="none" stroke="#ecb454" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="logo-text">
+              <span class="logo-name" style="color:#fff;">Kineticore</span>
+              <span class="logo-tag" style="color:rgba(255,255,255,0.5);">Systems Inc.</span>
+            </span>
+          </a>
+          <p>Turnkey data acquisition systems, custom lab software, and instrumented pyrolysis plants
+          producing biochar from wood waste. Focus on science — we handle the infrastructure.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">About Us</a>
+          <a href="services.html">Services</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Solutions</h4>
+          <a href="lab-systems.html">Lab &amp; DAQ Systems</a>
+          <a href="pyrolysis.html">Pyrolysis &amp; Biochar</a>
+          <a href="kc-36.html">KC-36 Logger</a>
+        </div>
+        <div class="footer-col">
+          <h4>Get in touch</h4>
+          <div class="footer-contact">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:info@kineticore.ca">info@kineticore.ca</a>
+          </div>
+          <div class="footer-contact">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Canada · Serving research &amp; industry nationwide</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Kineticore Systems Inc. All rights reserved.</span>
+        <span><a href="index.html">kineticore.ca</a> · Focus on science, not tech.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
