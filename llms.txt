@@ -1,0 +1,27 @@
+# Kineticore Systems Inc.
+
+> Canadian engineering company (British Columbia, serving research and industry
+> nationwide) operating in two divisions: (1) Laboratory & DAQ Systems — turnkey
+> data acquisition systems, purpose-built acquisition software, secure instrument
+> connectivity, calibration and documentation for industrial R&D and research
+> laboratories, including the KC-36 thermocouple logger (36 K-type channels,
+> ±0.5 °C calibrated accuracy, live visualization, CSV export); (2) Pyrolysis &
+> Biochar — an instrumented pyrolysis facility in development that converts wood
+> waste into traceable biochar, syngas and heat, with laboratory-grade process
+> monitoring. Motto: "Focus on science, not tech."
+
+## Pages
+
+- [Home](https://kineticore.ca/): Company overview of both divisions — Lab & DAQ Systems and Pyrolysis & Biochar.
+- [Lab & DAQ Systems](https://kineticore.ca/lab-systems.html): Custom DAQ hardware, purpose-built acquisition software, secure instrument connectivity, full calibration and documentation for research laboratories.
+- [Pyrolysis & Biochar](https://kineticore.ca/pyrolysis.html): Instrumented pyrolysis plant converting wood waste into biochar, syngas and heat; feedstock partnerships, biochar supply and toll processing.
+- [KC-36 Thermocouple Logger](https://kineticore.ca/kc-36.html): Standalone 36-channel K-type thermocouple logger with ±0.5 °C calibrated accuracy, thresholds, live plots and CSV export.
+- [Services](https://kineticore.ca/services.html): End-to-end DAQ and lab-system engineering plus pyrolysis and biochar production services.
+- [About](https://kineticore.ca/about.html): Company background and the two-division mission.
+- [Contact](https://kineticore.ca/contact.html): Request a technical consultation; form supports topics for DAQ, KC-36 pricing/support, feedstock, biochar purchase and toll processing.
+- [Sitemap](https://kineticore.ca/sitemap.xml): XML sitemap of all pages.
+
+## Contact
+
+- Email: info@kineticore.ca
+- Consultation requests: https://kineticore.ca/contact.html

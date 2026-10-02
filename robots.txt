@@ -1,2 +1,7 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://kineticore.ca/sitemap.xml
+
+# Machine-readable site summary for AI/LLM assistants:
+# https://kineticore.ca/llms.txt

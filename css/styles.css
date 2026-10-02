@@ -367,7 +367,7 @@ ul { list-style: none; }
 @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
 .footer-brand p { margin-top: 16px; max-width: 300px; line-height: 1.6; }
-.footer-col h4 { color: #fff; font-size: 13.5px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
+.footer-col h3 { color: #fff; font-size: 13.5px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
 .footer-col a { display: block; color: rgba(255,255,255,0.72); padding: 5px 0; transition: color 0.15s; }
 .footer-col a:hover { color: var(--amber-400); }
 .footer-col .footer-contact { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }

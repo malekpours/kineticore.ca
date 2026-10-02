@@ -24,7 +24,9 @@ site: **Laboratory & DAQ Systems** (the existing business) and **Pyrolysis & Bio
 ├── css/styles.css        # single design system (colors, components, responsive)
 ├── js/main.js            # mobile nav, scroll reveal, division switcher, form validation
 ├── img/                  # logo.png (brand mark), favicon-48/180/192/512.png,
+│                           og-image.png (1200x630 social card),
 │                           process-diagram.svg, kc36-device.svg, legacy logo.svg + favicon.svg
+├── llms.txt              # site summary for AI/LLM crawlers
 ├── sitemap.xml, robots.txt
 ```
 
