@@ -128,6 +128,39 @@
       return digits >= 7 && digits <= 15;
     }
 
+    function mailtoLink() {
+      var name = form.querySelector("#f-name").value.trim();
+      var email = form.querySelector("#f-email").value.trim();
+      var phone = form.querySelector("#f-phone").value.trim();
+      var ext = form.querySelector("#f-ext").value.trim();
+      var msg = form.querySelector("#f-msg").value.trim();
+      var company = form.querySelector("#f-company").value.trim();
+      var topic = form.querySelector("#f-topic").value || "General enquiry";
+      var subject = encodeURIComponent("[" + topic + "] " + name);
+      var body = [
+        "Name: " + name,
+        "Email: " + email,
+        "Phone: " + phone,
+        company ? "Company: " + company : null,
+        ext ? "Extension: " + ext : null,
+        "Topic: " + topic,
+        "",
+        "Message:",
+        msg
+      ].filter(Boolean).join("\n");
+      return "mailto:info@kineticore.ca?subject=" + subject + "&body=" + encodeURIComponent(body);
+    }
+
+    function showError(title, detail) {
+      status.className = "form-status err";
+      status.textContent = title;
+      if (detail) status.appendChild(document.createTextNode(" " + detail));
+      var fallback = document.createElement("a");
+      fallback.href = mailtoLink();
+      fallback.textContent = " Send by email instead.";
+      status.appendChild(fallback);
+    }
+
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var name = form.querySelector("#f-name").value.trim();
@@ -149,7 +182,8 @@
         return;
       }
 
-      var endpoint = form.getAttribute("data-endpoint") || "/sendmail/process-wrapper.php";
+      var endpoint = form.getAttribute("data-endpoint") || "sendmail/process-wrapper.php";
+      var endpointUrl = new URL(endpoint, window.location.href).toString();
       var data = new URLSearchParams();
       form.querySelectorAll("input[name], select[name], textarea[name]").forEach(function (el) {
         data.append(el.name, el.value);
@@ -161,38 +195,52 @@
       status.className = "form-status";
       status.textContent = "";
 
-      fetch(endpoint, {
+      fetch(endpointUrl, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
         body: data.toString()
       })
-        .then(function (r) { return r.text(); })
-        .then(function (response) {
+        .then(function (r) {
+          return r.text().then(function (body) {
+            return {
+              body: body.replace(/^\uFEFF/, "").trim(),
+              status: r.status,
+              ok: r.ok,
+              contentType: r.headers.get("content-type") || ""
+            };
+          });
+        })
+        .then(function (result) {
+          var response = result.body;
           if (response.indexOf("Success") === 0) {
             form.querySelector(".form-grid").style.display = "none";
             document.getElementById("form-thankyou").style.display = "block";
             var note = form.querySelector(".form-note");
             if (note) note.style.display = "none";
           } else if (response.indexOf("Fail:") === 0) {
-            status.className = "form-status err";
-            status.innerHTML = "<strong>Configuration error:</strong><br>" + response.substring(5);
+            showError("Form configuration/validation error:", response.substring(5).trim());
             submitBtn.disabled = false;
             submitBtn.textContent = originalLabel;
           } else if (response.indexOf("Error:") === 0 || response.indexOf("Debug:") === 0) {
-            status.className = "form-status err";
-            status.innerHTML = "<strong>Error:</strong><br>" + response.replace(/^(Error:|Debug:)/, "");
+            showError("Form server error:", response.replace(/^(Error:|Debug:)/, "").trim());
             submitBtn.disabled = false;
             submitBtn.textContent = originalLabel;
           } else {
-            status.className = "form-status err";
-            status.textContent = "Unknown error, please try later - or email info@kineticore.ca directly.";
+            var detail = "HTTP " + result.status + ".";
+            if (!/html/i.test(result.contentType) && response) {
+              detail += " Server response: " + response.substring(0, 300);
+            } else if (/html/i.test(result.contentType)) {
+              detail += " The endpoint returned an HTML page instead of the form response.";
+            }
+            if (!result.ok) detail = "The form request failed. " + detail;
+            showError("Unexpected response from the form server.", detail);
             submitBtn.disabled = false;
             submitBtn.textContent = originalLabel;
           }
         })
         .catch(function () {
           status.className = "form-status err";
-          status.textContent = "Could not reach the form server. If you are viewing a local preview, this works once deployed - meanwhile email info@kineticore.ca.";
+          status.innerHTML = "Could not reach the form server. Please <a href=\"" + mailtoLink() + "\">email info@kineticore.ca directly</a> instead.";
           submitBtn.disabled = false;
           submitBtn.textContent = originalLabel;
         });

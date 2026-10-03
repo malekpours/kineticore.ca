@@ -44,10 +44,10 @@ site: **Laboratory & DAQ Systems** (the existing business) and **Pyrolysis & Bio
 ## Editing tips
 
 - All nav/footer markup is repeated per page (static site trade-off). Search-replace across files to update.
-- **Contact form** posts via AJAX to `/sendmail/process-wrapper.php`
-  (fields: `Name, Email, Company, Topic, Phone, Extension, Message`). It only works when
-  deployed to the live host at the domain root; if you deploy under a subfolder, update the form's
-  `data-endpoint` attribute in `contact.html`. Response parsing matches the original `form.js`
+- **Contact form** posts via AJAX to a site-relative endpoint (`sendmail/process-wrapper.php`)
+  (fields: `Name, Email, Company, Topic, Phone, Extension, Message`). It resolves relative to the
+  current page so it still works under deployment subfolders, and it falls back to a direct mailto
+  link when the PHP backend is unavailable. Response parsing matches the original `form.js`
   (`Success*` → thank-you, `Fail:`/`Error:`/`Debug:` → inline error).
 
 ### Contact form backend (sendmail/)
