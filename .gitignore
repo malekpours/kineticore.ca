@@ -1,3 +1,6 @@
+# Secrets - never commit real credentials
+.env
+
 # Freebuff workspace metadata
 .freebuff/
 
